@@ -22,7 +22,7 @@ $successMessage = "";
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
      //detemine if the variable is different than null, and if it get the id of the person
      if (!isset($_GET["id"])) {
-          header("location: second/index.php");
+          header("location: index.php");
           exit;
      }
      //read the id of the person from the request
@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
      //if we don't have any data from the database
      if (!$row) {
-          header("location: second/index.php");
+          header("location: index.php");
           exit;
      }
      //can read the data from the database

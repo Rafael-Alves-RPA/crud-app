@@ -2,7 +2,7 @@
 if (isset($_GET["id"])) {
      $id = $_GET["id"];
 
-     
+
      require_once "iconn.php";
      require_once "conn.php";
 
