@@ -38,7 +38,7 @@
                     $conn = new conn("us-cdbr-east-06.cleardb.net", "heroku_c6d76a1a0db8ac9", "bf87fbf69295b7", "64613672");
 
                     //read all row from database 
-                    $sql = "SELECT * FROM crud2.persons";
+                    $sql = "SELECT * FROM persons";
                     $result = $conn->query($sql);
 
 
