@@ -5,7 +5,7 @@ class conn
      //private \PDOStatement $stmt;
 
      private $host = 'us-cdbr-east-06.cleardb.net';
-     private $port = '3307';
+     //private $port = '3307';
      private $dbname = 'heroku_c6d76a1a0db8ac9';
      private $user = 'bf87fbf69295b7';
      private $pass = '64613672';
@@ -16,7 +16,7 @@ class conn
 
      public function __construct()
      {
-          $dsn = 'mysql:host=' . $this->host . ';port=' . $this->port . ';dbname=' . $this->dbname;
+          $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->dbname;
 
           $options = array(
                PDO::ATTR_PERSISTENT         => true, // turn on persistent connection
