@@ -3,8 +3,6 @@
 require "conn.php";
 
 //Create Connection
-//$conn = new conn("localhost", "root", "", "crud2");
-
 
 $dbh = new conn();
 

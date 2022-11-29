@@ -4,11 +4,11 @@ class conn
      //private \PDO $pdo;
      //private \PDOStatement $stmt;
 
-     private $host = 'localhost';
+     private $host = 'us-cdbr-east-06.cleardb.net';
      private $port = '3307';
-     private $dbname = 'crud2';
-     private $user = 'root';
-     private $pass = '';
+     private $dbname = 'heroku_c6d76a1a0db8ac9';
+     private $user = 'bf87fbf69295b7';
+     private $pass = '64613672';
 
      private $dbh;
      private $stmt;
