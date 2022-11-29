@@ -29,27 +29,27 @@
                </thead>
                <tbody>
                     <?php
-                    require_once "iconn.php";
-                    require_once "conn.php";
+                    //require_once "iconn.php";
+                    require "conn.php";
 
                     //Create Connectionaa
                     //$conn = new conn("localhost", "crud2", "root", "");
 
-                    $conn = new conn("us-cdbr-east-06.cleardb.net", "heroku_c6d76a1a0db8ac9", "bf87fbf69295b7", "64613672");
+                    $dbh = new conn();
 
                     //read all row from database 
-                    $sql = "SELECT * FROM persons";
-                    $result = $conn->query($sql);
+                    $stmt = $dbh->query("SELECT * FROM persons");
+                    $result = $stmt->execute();
 
 
                     if ($result == TRUE) {
                          echo "Successful";
                     } else {
-                         die("Invalid query: " . $conn->error);
+                         die("Invalid query: " . $dbh->error);
                     }
 
                     //read data of each row
-                    while ($row = $result->fetch_assoc()) {
+                    while ($row = $result->fetch()) {
                          echo "
                          <tr>
                               <td>$row[id]</td>

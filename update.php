@@ -1,12 +1,12 @@
 <?php
-require_once "iconn.php";
-require_once "conn.php";
+//require_once "iconn.php";
+require "conn.php";
 
 
 //Create Connection
 //$conn = new conn("localhost", "root", "", "crud2");
 
-$conn = new conn("us-cdbr-east-06.cleardb.net", "heroku_c6d76a1a0db8ac9", "bf87fbf69295b7", "64613672");
+$dbh = new conn();
 
 //start as empty fields
 $id = "";
@@ -29,9 +29,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
      $id = $_GET["id"];
 
      //read the row of the selected id from the database
-     $sql = "SELECT * FROM persons WHERE id=$id";
-     $result = $conn->query($sql);
-     $row = $result->fetch_assoc();
+     $stmt = $dbh->query("SELECT * FROM persons WHERE id=$id");
+     $row = $stmt->execute()->fetch();
+     //$row = $result->fetch_assoc();
 
      //if we don't have any data from the database
      if (!$row) {
@@ -59,8 +59,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                break;
           }
           //update the itens on the database
-          $sql = "UPDATE persons SET name = '$name', email = '$email', phone = '$phone', address = '$address' WHERE id = $id";
-          $result = $conn->query($sql);
+          $stmt = $dbh->query("UPDATE persons SET name = '$name', email = '$email', phone = '$phone', address = '$address' WHERE id = $id");
+          $result = $stmt->execute();
 
           if (!$result) {
                $errorMessage = "Invalid query: " . $conn->error;

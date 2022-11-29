@@ -1,40 +1,53 @@
 <?php
-class conn implements iconn
+class conn
 {
+     //private \PDO $pdo;
+     //private \PDOStatement $stmt;
 
-     private \PDO $pdo;
-     private \PDOStatement $stm;
+     private $host = 'localhost';
+     private $port = '3307';
+     private $dbname = 'crud2';
+     private $user = 'root';
+     private $pass = '';
+
+     private $dbh;
+     private $stmt;
+
 
      public function __construct()
      {
-          $this->pdo = new \PDO(
-               "mysql:host=us-cdbr-east-06.cleardb.net;port=3306;dbname=heroku_c6d76a1a0db8ac9",
-               'bf87fbf69295b7',
-               '64613672'
+          $dsn = 'mysql:host=' . $this->host . ';port=' . $this->port . ';dbname=' . $this->dbname;
+
+          $options = array(
+               PDO::ATTR_PERSISTENT         => true, // turn on persistent connection
+               PDO::ATTR_EMULATE_PREPARES   => false, // turn off emulation mode for "real" prepared statements
+               PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION, //turn on errors in the form of exceptions
+               PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, //make the default fetch be an associative array
           );
-     }
-     public function connect()
-     {
+
           try {
-               return new \PDO(
-                    "mysql:host=us-cdbr-east-06.cleardb.net;port=3306;dbname=heroku_c6d76a1a0db8ac9",
-                    'bf87fbf69295b7',
-                    '64613672'
-               );
+               $this->dbh = new PDO($dsn, $this->user, $this->pass, $options);
           } catch (\PDOException $e) {
                echo "Error! Message: " . $e->getMessage() . "Code: " . $e->getCode();
                exit;
           }
      }
 
-     public function query($sql)
+     public function query($query)
      {
-          $this->stm = $this->pdo->query($sql);
+          $this->stmt = $this->dbh->prepare($query);
           return $this;
      }
 
-     public function fetch_assoc()
+     public function execute()
      {
-          return $this->stm->fetch(\PDO::FETCH_ASSOC);
+          $this->stmt->execute();
+          return $this->stmt;
+     }
+
+     public function result()
+     {
+          $this->execute();
+          return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
      }
 }

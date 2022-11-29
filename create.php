@@ -1,12 +1,12 @@
 <?php
-require_once "iconn.php";
-require_once "conn.php";
+//require_once "iconn.php";
+require "conn.php";
 
 //Create Connection
 //$conn = new conn("localhost", "root", "", "crud2");
 
 
-$conn = new conn("us-cdbr-east-06.cleardb.net", "heroku_c6d76a1a0db8ac9", "bf87fbf69295b7", "64613672");
+$dbh = new conn();
 
 //start as empty fields
 $name = "";
@@ -29,8 +29,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                $errorMessage = "All fields must be fill";
                break;
           }
-          $sql = "INSERT INTO persons (name, email, phone, address) VALUES ('$name', '$email', '$phone', '$address')";
-          $result = $conn->query($sql);
+          $stmt = $dbh->query("INSERT INTO persons (name, email, phone, address) VALUES ('$name', '$email', '$phone', '$address')");
+          $result = $stmt->execute();
           if (!$result) {
                $errorMessage = "Invalid query: " . $conn->error;
                break;
